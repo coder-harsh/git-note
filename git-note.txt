@@ -1,0 +1,188 @@
+ctrl+l: go to top in git bash although all runned command will be in upper side but we need to click up to see.
+clear : clear git bash 
+U Untracked
+A Added(1st time tracking/staged)
+M Modified (after modification, staged changes status will be green)
+D deleted
+R Renamed (mv filename.txt newfile.txt means file renamed)
+! conflicts: both modified
+--------------------------------------------------------------------
+
+
+rm -rf .git where r is recureceively & f is forcefully delete
+git diff tells difference b/w working dir/ (modified) & staging area.
+git diff --staged tells difference b/w staging area to previous commit
+git log --oneline will tell single line commit without detail
+
+git log -p -1: it will tell what happend in the last commit in very details.
+git log -p -2: it will tell what happened in 2nd last commit in very details & so on....
+--------------------------------------------------------------------
+
+git rm filename.txt will remove the file & changes will be staged automatically.
+git mv filename.txt newfile.txt | git status: renamed:    index.html -> home.html
+git rm abc/random.txt will delete abc-folder(as git donot tracked empty folder) & random.txt & changes will be staged automatically
+--------------------------------------------------------------------
+
+running git init 2 times will reinitialised the .git folder
+mv filename.txt newfile.txt & running git status will tell that filename.txt is deleted & newfile.txt is untracked
+again moving newfile.txt to filename.txt will discard previous changes.
+
+
+---------------------------------------------------------------------
+git restore filename.txt to undo delete any file
+
+git rm --cached filename.txt to untrack any file. after that git status tells delete filename.txt, stage the changes & show untracked files i.e filename.txt(will not be deleted)
+
+git ignore empty directory
+if we create a file then git status will be untracked. again if we change the file then git status will be untracked.
+
+
+git restore --staged filename.txt to unstage filename.txt. git status will tell untracked file: filename.txt
+
+git restore --staged filename.txt: it will also untrack staged modified filename.txt  
+
+------------------------------
+git checkout -- filename.txt : it will unmodify filename.txt a/c to previous commit. it is a dangerous commit as it discard all your current changes in working directory.
+
+git checkout -f: rollback all files to previous commit
+
+----------------------------------
+esc :wq to exit vim editor
+ctrl+l to clear
+vim ~/.gitconfig to see configuration like alias, username, user.email etc.
+
+
+git config --global alias.st status: git st will replace  git status.
+git config --global alias.unstage 'restore --staged --': git unstage filename.txt will replace git restore --staged filenmae.txt
+
+---------------------------------------------
+head always points to the last commit in active branch.
+The default branch name in Git is master
+currently active branch will be in green color.
+* points to the currently active branch in which we are working.
+
+git branch: it will tell all the branches.
+git branch -v: it will tell the last commit in all branches. intially when we create a branch but in that branch we didnt commit anything then running this command will tell the same commit like master as the new branch start from the master branch. check slide #64
+file:///C:/Users/harsh/Downloads/slides-git-and-github-master-course.html#/64
+
+
+-----------------------------------------
+git branch branchname to create a branch
+
+git checkout branchname to switch to the branch.
+
+git checkout -b branchname to create & switch to that branch immidiately
+
+when the file is modified only in any branch & if we try to move to a new branch then there will be a error that pls commit or
+stash changes before switching branches..
+
+if a changes is modified & staged then we can switch to any branches & commit will happened in that switched branches for 1st time.
+again if we have modified & staged changes & we try to switch branches it will give error that  
+
+git checkout master
+error: Your local changes to the following files would be overwritten by checkout:
+        contact.html
+Please commit your changes or stash them before you switch branches.
+Aborting
+
+------------------------------------------------------------
+git log --oneline --graph --all: it will show all the branches in graph format.
+
+example:
+* 82f1784 (develop) minor changes in contact
+* e2ea6f4 improved contact.html & added feature.html
+| * 2f75561 (HEAD -> master) added bymaster.html
+| * ba7970a (ui) added a space in contact.html
+|/
+* 77664d3 (ux) all files added
+
+after mergeing we genrally delete a branch.
+
+git branch -d branchname: to delete a branch if the changes is merged or that branch has not any changes commited. 
+         .🎈develop
+         .🎈
+         .
+.........🎈.........🎈master
+         ux
+
+here we can only delete ux branch with "git branch -d ux" because it dont have any changes commited.
+
+git branch -D branchname: for forcefully deleting a branch who have changes commited but not merged yet.
+we can delete develop branch with upper command as develop have changes commited but not merged.
+git branch -d branchname: deleting a branch who have changes commited but not merged yet will gives error that
+error: The branch 'develop' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D develop'.
+
+---------------------------------------------------------------------------------------------
+basic merging: if there is only changes in one branch & no changes in other branch(master branch) then this is basic merging
+if i need to merge impfix to master branch.
+
+then i need to be at master branch & then run
+git merge impfix: it will merge impfix to master branch(current branch)
+
+we always aim to  be updated master branch
+------------------------------------------------------------------------------------------------
+recursive merging
+if we have some changes in master branch & some changes in impfix branch then there will be a recursive merging b/w master & impfix branch.
+
+command will be same like basic merging i.e git merge develop to merge develop into current branch master
+this merging will be with a commit msg in the editor. for edit default msg press insert. for exit, press esc & :wq 
+
+after exit it will tell
+Merge made by the 'ort' strategy.
+ contact.html | 47 +++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 37 insertions(+), 10 deletions(-)
+ort is same as recursive strategy but with latest update.
+
+after this running git log will tell also an extra commit i.e commit msg for recursie merging.
+
+$ git log --oneline --graph --all
+*   68a6bb7 (HEAD -> master) merge branch 'develop'
+|\
+| * 6082061 (develop) improved contact.html
+| * 9eadab8 better contact page
+* | 57004b5 (impfix) fix home.html
+|/
+* 2f75561 added bymaster.html
+* ba7970a added a space in contact.html
+* 77664d3 all files added
+
+------------------------------------------------------------------------------------------------
+
+Changes in a file made by 2 different branches, trying to get merge results in a Merge Conflicts
+
+<<<<<<< head[current changes(left side)]
+
+======================== is the border of current vs upcomming changes.
+
+>>>>>>> b1(branch-name) incomming changes(right side)
+
+after resolving conflicts we need to commit changes with or without msg & then after commit merging happened.
+
+git branch --merged: to see merged branches
+git branch --no-merged: to see non merged branches
+------------------------
+in rebasing, output will be same like merging but the process of rebasing will different from merging.
+
+in rebasing, all the commits will be deleted from the branch from which you are rebasing & those commit will be appended/copied to the branch you are rebasing on.
+
+if we want to rebase experiment branch to master branch then you need to be at experiment branch. and then run this command.
+
+git rebase master: to rebase experiment to master branch. it will give msg:Successfully rebased and updated refs/heads/experiment.
+
+it means that experiment branch will be now linear with master branch i.e in the same line. after that we can merge experiment branch with master branch by fast forwaarding.
+also all the new changes will be came from master branch and new changes of experiment branch will be still at experiment branch. i.e experiment branch will be in linear with master.
+
+now you have merge experiment to master branch to keep updated master branch.
+
+
+
+---------------------
+#Github
+
+git branch -M main: rename current to main or if only 1 branch master is there.then pls rename master to main branch 
+
+
+
+---------------------
+ls -al ~/.ssh : to see if existing SSH keys are present
