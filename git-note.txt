@@ -200,3 +200,4 @@ after verify it will give msg: Hi coder-harsh! You've successfully authenticated
 
 ------------------------------------------
 
+git clone repo-url :to clone a repo locally.
