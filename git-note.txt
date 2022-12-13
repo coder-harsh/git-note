@@ -185,6 +185,8 @@ git branch -M main: rename current to main or if only 1 branch master is there.t
 
 
 ---------------------
+personal access token will genrated in github profile. you have to add personal access token in windows credintial with github username & pct as passord.
+----------------------
 ls -al ~/.ssh : to see if existing SSH keys are present
 
 $ ssh-keygen -t ed25519 -C "your_email@example.com" : generate a new ssh key. here you have to replace github acc. email adress.
@@ -197,3 +199,4 @@ after verify it will give msg: Hi coder-harsh! You've successfully authenticated
 
 
 ------------------------------------------
+
