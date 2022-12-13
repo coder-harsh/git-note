@@ -201,3 +201,11 @@ after verify it will give msg: Hi coder-harsh! You've successfully authenticated
 ------------------------------------------
 
 git clone repo-url :to clone a repo locally.
+
+-----------------
+git fetch : this command downloads commits, files, and refs from a remote repository into your local repo. not in working dir.
+
+to see remote changes in working dir. you have to merge it after git fetch.
+git fetch origin main or git fetch then git merge origin/main : show remote changes in working dir. 
+
+-----------------------------
