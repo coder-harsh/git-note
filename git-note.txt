@@ -186,3 +186,14 @@ git branch -M main: rename current to main or if only 1 branch master is there.t
 
 ---------------------
 ls -al ~/.ssh : to see if existing SSH keys are present
+
+$ ssh-keygen -t ed25519 -C "your_email@example.com" : generate a new ssh key. here you have to replace github acc. email adress.
+after generate ssh you have to add public ssh key to your profile. private ssh will be in your local laptop in c/user/.ssh folder(default).
+
+
+ssh -T git@github.com : to verify existing ssh key in local git laptop. 
+
+after verify it will give msg: Hi coder-harsh! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+------------------------------------------
