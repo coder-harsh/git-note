@@ -209,3 +209,5 @@ to see remote changes in working dir. you have to merge it after git fetch.
 git fetch origin main or git fetch then git merge origin/main : show remote changes in working dir. 
 
 -----------------------------
+git pull: git fetch+git merge origin/main alternative. i.e fetch changes in local repo then merge changes in working dir directly.
+but sometimes git pull gives merge conflicts.
