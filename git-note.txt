@@ -202,6 +202,14 @@ after verify it will give msg: Hi coder-harsh! You've successfully authenticated
 
 git clone repo-url :to clone a repo locally.
 
+git fetch
+git merge
+
+git fetch is fetch changes in git 
+git merge is mix changes from .git to working dir.
+
+git pull=git fetch+git merge
+
 -----------------
 git fetch : this command downloads commits, files, and refs from a remote repository into your local repo. not in working dir.
 
@@ -211,3 +219,21 @@ git fetch origin main or git fetch then git merge origin/main : show remote chan
 -----------------------------
 git pull: git fetch+git merge origin/main alternative. i.e fetch changes in local repo then merge changes in working dir directly.
 but sometimes git pull gives merge conflicts.
+
+git push origin main: to push changes to origin main.
+
+git remote add origin url: to add remote origin to push changes. generally this is our fork repo.
+git remote add upstream url: to fetch main repo and uptodate with the main repo we set upstream(main repo). then we fetcch merge or pull to sync with main repo.
+
+
+git remote: to check origin
+git remote -v: to see url(origin)
+----------------------------------
+git show commitid: to see changes in a particular commit.
+
+
+
+
+----------------------
+git reset --hard HEAD^: reset last commit at head
+git push -f origin HEAD^:main: undo last commit from github
